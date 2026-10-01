@@ -38,6 +38,10 @@ python addition.py --target clip --terms openclip:eurosat,metaclip:dtd
 
 # CLIP loses EuroSAT through OpenCLIP's descriptor
 python negation.py --target clip --source openclip --task eurosat
+
+# The same two edits realized by the adapter, one LoRA fitted per edit
+python addition.py --target clip --terms openclip:eurosat,metaclip:dtd --method adapter
+python negation.py --target clip --source openclip --task eurosat --method adapter
 ```
 
 Models are `clip`, `openclip`, `metaclip`, `evaclip`, `siglip` and `siglip2`, and tasks are `eurosat`, `dtd`, `cars`, `gtsrb`, `mnist`, `resisc45`, `svhn` and `sun397`; models and datasets are downloaded on first use. `--help` lists the remaining options (strength, control sets, saving the edit).
@@ -52,6 +56,13 @@ bundle, feats = TR.prepare("clip", [(m, t) for m, t, _ in terms])
 update = TR.closed_form_update("clip", terms, bundle, feats)
 model, processor = M.load("clip")
 TR.apply_closed_form(model, "clip", update, alpha=0.5)
+```
+
+The same addition with the adapter, which fits one LoRA to all terms jointly at full strength in place of the solve and the fold:
+
+```python
+model, processor = M.load("clip")
+TR.fit_adapter(model, processor, "clip", terms, bundle, feats)
 ```
 
 ### Checkpoints
