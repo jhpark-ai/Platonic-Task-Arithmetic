@@ -1,6 +1,10 @@
 # Platonic Task Arithmetic
 
-**[NeurIPS 2026]** Official PyTorch implementation of
+**[NeurIPS 2026]** 
+
+[📄 Paper](https://arxiv.org/abs/2610.00929) · [🌐 Project Page](https://jhpark-ai.github.io/Platonic-Task-Arithmetic/)
+
+Official PyTorch implementation of
 
 > **Platonic Task Arithmetic**
 >
